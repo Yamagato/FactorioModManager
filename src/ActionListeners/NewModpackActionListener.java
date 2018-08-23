@@ -3,6 +3,7 @@ package ActionListeners;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class NewModpackActionListener implements ActionListener {
 
@@ -14,7 +15,7 @@ public class NewModpackActionListener implements ActionListener {
 
 		String modpackName = JOptionPane.showInputDialog("Creating a new Modpack: Enter the name");
 
-		if(modpackName==null){
+		if(modpackName==null || modpackName.equals("")){
 			JOptionPane.showMessageDialog(null, "You've not entered a name. New modpack will not be created.");
 			return;
 		}
