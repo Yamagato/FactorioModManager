@@ -10,7 +10,7 @@ public class Window extends JFrame{
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
 	public static final String FACTORIO_DIRECTORY = System.getenv("APPDATA") + "\\Factorio";
-	public static final String CURRENT_MODPACK = getCurrentModpackName();
+	public static String CURRENT_MODPACK = getCurrentModpackName();
 	private static Window window;
 
 	public static void main(String[] args){
@@ -39,10 +39,16 @@ public class Window extends JFrame{
 		try{
 			File f = new File(FACTORIO_DIRECTORY+"\\mods\\modpackname.txt");
 			Scanner sc = new Scanner(f);
-			return sc.nextLine();
+			String name = sc.nextLine();
+			sc.close();
+			return name;
 		}catch (FileNotFoundException e){
 			return "Untitled";
 		}
+	}
+
+	public static void refreshCurrentModpack(){
+		CURRENT_MODPACK = getCurrentModpackName();
 	}
 
 }

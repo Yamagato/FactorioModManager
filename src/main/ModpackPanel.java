@@ -13,6 +13,7 @@ import static main.Window.FACTORIO_DIRECTORY;
 
 public class ModpackPanel extends JPanel {
 	private static JComboBox<String> modlistDropdown;
+	private static String[] modpackList = findModpacks();
 	ModpackPanel(){
 		super();
 
@@ -34,7 +35,7 @@ public class ModpackPanel extends JPanel {
 		modpackNameLabel.setBorder( new EmptyBorder(4,0,0,0));
 		modpackSelection.add(modpackNameLabel, c);
 
-		modlistDropdown = new JComboBox<>(findModpacks());
+		modlistDropdown = new JComboBox<>(getModpackList());
 		c.gridx=1;
 		c.gridy=0;
 		c.weightx=256;
@@ -65,7 +66,7 @@ public class ModpackPanel extends JPanel {
 		return modlistDropdown;
 	}
 
-	private String[] findModpacks(){
+	private static String[] findModpacks(){
 		String[] possibleModpacks = findFolderList();
 		ArrayList<String> modpackNamesAL = new ArrayList<>();
 		for(String folder: possibleModpacks){
@@ -81,7 +82,7 @@ public class ModpackPanel extends JPanel {
 		return modpackNamesA;
 	}
 
-	private String[] findFolderList(){
+	private static String[] findFolderList(){
 		File[] directories = new File(FACTORIO_DIRECTORY).listFiles(File::isDirectory);
 		String[] folderNames = new String[0];
 		if (directories != null) {
@@ -93,9 +94,22 @@ public class ModpackPanel extends JPanel {
 		return folderNames;
 	}
 
-	private String getNameIfModpackDirectory(String folderName) throws FileNotFoundException{
+	private static String getNameIfModpackDirectory(String folderName) throws FileNotFoundException{
 		File f = new File(FACTORIO_DIRECTORY+"\\" + folderName + "\\modpackname.txt");
 		Scanner sc = new Scanner(f);
-		return sc.nextLine();
+		String name = sc.nextLine();
+		sc.close();
+		return name;
+	}
+
+	public static String[] getModpackList(){
+		return modpackList;
+	}
+
+	public static void addToModpackList(String modpackName){
+		modlistDropdown.addItem(modpackName);
+	}
+	public static void removeFromModpackList(String modpackName){
+		modlistDropdown.removeItem(modpackName);
 	}
 }
