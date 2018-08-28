@@ -28,7 +28,7 @@ public class DeleteModpackActionListener implements ActionListener {
 			deleteDirectory(modpackDirectory);
 			deleteDirectory(saveDirectory);
 			ModpackPanel.removeFromModpackList(modpackName);
-			JOptionPane.showMessageDialog(null, modpackName + "modpacl was deleted.", "Success");
+			JOptionPane.showMessageDialog(null, modpackName + "modpack was deleted.", "Success");
 		}
 	}
 

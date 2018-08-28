@@ -12,7 +12,7 @@ public class SwitchModpackActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(Window.CURRENT_MODPACK == ModpackPanel.getModlistDropdown().getSelectedItem()) return;
-		JOptionPane.showMessageDialog(null, "Are you sure you want to switch active modpack from " + Window.CURRENT_MODPACK + " to " + ModpackPanel.getModlistDropdown().getSelectedItem() + "?", "Action Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		int confirmation = JOptionPane.showMessageDialog(null, "Are you sure you want to switch active modpack from " + Window.CURRENT_MODPACK + " to " + ModpackPanel.getModlistDropdown().getSelectedItem() + "?", "Action Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if(confirmation == JOptionPane.YES_OPTION){
 			if(switchMods(Window.CURRENT_MODPACK, (String) ModpackPanel.getModlistDropdown().getSelectedItem())){
 				if(switchSaves(Window.CURRENT_MODPACK, (String) ModpackPanel.getModlistDropdown().getSelectedItem())){
