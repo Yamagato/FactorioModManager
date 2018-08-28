@@ -12,23 +12,23 @@ public class DeleteModpackActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String modpackName = (String) ModpackPanel.getModlistDropdown().getSelectedItem();
-		int confirmation = JOptionPane.showConfirmDialog(null, String.format("Are you sure you want to delete %s? There is no going back after this!", modpackName), "Deleting Modpack", JOptionPane.YES_NO_OPTION);
+		int confirmation = JOptionPane.showConfirmDialog(null, String.format("Deleting %! \nAre you sure you want to do this, there is no way to restore a deleted modpack!", modpackName), "Deleting Modpack", JOptionPane.YES_NO_OPTION);
 		if(confirmation == JOptionPane.YES_OPTION){
 			File modpackDirectory;
 			File saveDirectory;
 			if(modpackName.equals(Window.CURRENT_MODPACK)){
-				JOptionPane.showMessageDialog(null, "This is your currently selected modpack. Please change to a different modpack before deleting this one.\n(I'll fix this later. For now just switch modpacks)");
+				JOptionPane.showMessageDialog(null, "This is your currently selected modpack. Please change to a different modpack before deleting this one.\n(I'll fix this later. For now just switch modpacks)", JOptionPane.ERROR_MESSAGE);
 				return;
 				//modpackDirectory = new File(Window.FACTORIO_DIRECTORY + "\\mods - " + modpackName);
 				//saveDirectory = new File(Window.FACTORIO_DIRECTORY + "\\save - " + modpackName);
 			} else {
 				modpackDirectory = new File(Window.FACTORIO_DIRECTORY + "\\mods - " + modpackName);
-				saveDirectory = new File(Window.FACTORIO_DIRECTORY + "\\save - " + modpackName);
+				saveDirectory = new File(Window.FACTORIO_DIRECTORY + "\\saves - " + modpackName);
 			}
 			deleteDirectory(modpackDirectory);
 			deleteDirectory(saveDirectory);
 			ModpackPanel.removeFromModpackList(modpackName);
-			JOptionPane.showMessageDialog(null, "Modpack " + modpackName + " deleted successfully.");
+			JOptionPane.showMessageDialog(null, modpackName + "modpacl was deleted.", "Success");
 		}
 	}
 

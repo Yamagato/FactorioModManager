@@ -12,19 +12,21 @@ public class SwitchModpackActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(Window.CURRENT_MODPACK == ModpackPanel.getModlistDropdown().getSelectedItem()) return;
-		JOptionPane.showMessageDialog(null, "Switching active modpack to " + ModpackPanel.getModlistDropdown().getSelectedItem());
-		if(switchMods(Window.CURRENT_MODPACK, (String) ModpackPanel.getModlistDropdown().getSelectedItem())){
-			if(switchSaves(Window.CURRENT_MODPACK, (String) ModpackPanel.getModlistDropdown().getSelectedItem())){
-				JOptionPane.showMessageDialog(null, "Switching active modpack to " + ModpackPanel.getModlistDropdown().getSelectedItem() + " has been successful!");
-			}else{
-				JOptionPane.showMessageDialog(null, "Switching save folder unsuccessful, attempting to revert");
-				if(switchMods((String) ModpackPanel.getModlistDropdown().getSelectedItem(), Window.CURRENT_MODPACK))
-					JOptionPane.showMessageDialog(null, "Reverting mod folder successful");
+		JOptionPane.showMessageDialog(null, "Are you sure you want to switch active modpack from " + Window.CURRENT_MODPACK + " to " + ModpackPanel.getModlistDropdown().getSelectedItem() + "?", "Action Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if(confirmation == JOptionPane.YES_OPTION){
+			if(switchMods(Window.CURRENT_MODPACK, (String) ModpackPanel.getModlistDropdown().getSelectedItem())){
+				if(switchSaves(Window.CURRENT_MODPACK, (String) ModpackPanel.getModlistDropdown().getSelectedItem())){
+					JOptionPane.showMessageDialog(null, "Active modpack has been switched to " + ModpackPanel.getModlistDropdown().getSelectedItem() + "!", "Success!");
+				} else{
+					JOptionPane.showMessageDialog(null, "Switching save folder unsuccessful, attempting to revert", "Failure!");
+					if(switchMods((String) ModpackPanel.getModlistDropdown().getSelectedItem(), Window.CURRENT_MODPACK))
+						JOptionPane.showMessageDialog(null, "Reverting mod folder successful", "Success!");
+				}
+			} else{
+				JOptionPane.showMessageDialog(null, "Switching active modpack was unsuccessful", "Failure!");
 			}
-		} else{
-			JOptionPane.showMessageDialog(null, "Switching mod folders unsuccessful");
+			Window.refreshCurrentModpack();
 		}
-		Window.refreshCurrentModpack();
 	}
 
 	private static boolean switchMods(String oldModpack, String newModpack) {

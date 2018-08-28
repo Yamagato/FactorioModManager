@@ -19,15 +19,15 @@ public class NewModpackActionListener implements ActionListener {
 		boolean nameNotUniqueOrEmpty = true;
 		String modpackName="";
 		while(nameNotUniqueOrEmpty) {
-			modpackName = JOptionPane.showInputDialog("Creating a new Modpack: Enter the name");
+			modpackName = JOptionPane.showInputDialog("Enter a name for the modpack:", "Creating new modpack...");
 			if(modpackName == null){
 				return;
 			}else if (modpackName.equals("")) {
-				JOptionPane.showMessageDialog(null, "Please enter a modpack name or press cancel");
+				JOptionPane.showMessageDialog(null, "Please enter a modpack name or press cancel", "Failure!");
 			} else if(checkIfModpackExists(modpackName)){
 				JOptionPane.showMessageDialog(null, String.format("Modpack names %s already exists. Please choose a different name", modpackName));
 			} else {
-				JOptionPane.showMessageDialog(null, "You've named your new modpack: " + modpackName);
+				JOptionPane.showMessageDialog(null, modpackName + " modpack has been created! ", "Success!");
 				nameNotUniqueOrEmpty = false;
 			}
 		}
@@ -40,10 +40,10 @@ public class NewModpackActionListener implements ActionListener {
 				FileWriter writer = new FileWriter(modpackNameFile);
 				writer.write(modpackName);
 				writer.close();
-				JOptionPane.showMessageDialog(null, "Modpack created successfully.");
+				JOptionPane.showMessageDialog(null, modpackName + "was created.", "Success!");
 				ModpackPanel.addToModpackList(modpackName);
 			} else {
-				JOptionPane.showMessageDialog(null, "Modpack creation failed");
+				JOptionPane.showMessageDialog(null, "Failed to create modpack with the name of " + modpackName, "Failure!");
 			}
 		}catch (IOException ignored){
 			JOptionPane.showMessageDialog(null, "Modpack creation failed");
